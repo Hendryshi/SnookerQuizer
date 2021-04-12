@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnookerQuizer", "SnookerQuizer\SnookerQuizer.csproj", "{ADC109C8-F42A-4670-A6C7-34A1F63B7707}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADC109C8-F42A-4670-A6C7-34A1F63B7707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC109C8-F42A-4670-A6C7-34A1F63B7707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC109C8-F42A-4670-A6C7-34A1F63B7707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC109C8-F42A-4670-A6C7-34A1F63B7707}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C8606A3-0089-4EC7-B433-D39D5F51626D}
+	EndGlobalSection
+EndGlobal
