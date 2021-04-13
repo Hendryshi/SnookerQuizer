@@ -2,43 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using SnookerQuizer.Model;
 using SnookerQuizer.Helper;
+using SnookerQuizer.CoreProcess;
 using Serilog;
 using Serilog.Exceptions;
 using System.Configuration;
+using System.IO;
 
 namespace SnookerQuizer
 {
 	class Program
 	{
+		public static int IdEvent = Convert.ToInt32(ConfigurationManager.AppSettings["Event"]);
+		public static string PlayersInEventXml = @"Event\players.xml";
+		public static string MatchsInEventXml = @"Event\matchs.xml";
+		public static string GamerFolder = @"Gamer\{0}.xml";
+
+		public static List<SnookerPlayer> SnookerPlayerList;
+		public static List<Match> MatchList;
+		public static List<GamerInfo> GamerList;
+
+		public 
+
 		static void Main(string[] args)
 		{
 			ConfigureSerilog();
-			//List<Match> matchs = HttpHelper.GetData<Match>("http://api.snooker.org", "?e=397&r=1&n=5");
 
-			//foreach(Match m in matchs)
-			//{
-			//	Console.WriteLine("{0}", m.IdPlayer1);
-			//	//Log.Information(m.StartDate);
-			//	//Log.Warning(m.StartDate);
-			//	//Log.Error(m.StartDate);
-			//	//Log.Fatal(m.StartDate);
-			//}
+			SnookerPlayerList = Processor.ImportPlayersInEvent();
+			MatchList = Processor.ImportMatchsInEvent();
 
-			List<SnookerPlayer> players = HttpHelper.GetData<SnookerPlayer>("http://api.snooker.org", "?t=9&e=1014");
-			foreach (SnookerPlayer p in players)
-			{
-				Console.WriteLine("{0}", p.NameDisplay());
-				//Log.Information(m.StartDate);
-				//Log.Warning(m.StartDate);
-				//Log.Error(m.StartDate);
-				//Log.Fatal(m.StartDate);
-			}
 
+			GamerList = Processor.ImportGamerList();
+
+			Processor.CalculatePoint();
+			Processor.SaveDatasToLocal();
+			
+			
+			//Test Function
+			//TestFunction.SendMail();
+
+			Console.WriteLine("Execution completed, press a key to continue");
 			Console.ReadKey();
 		}
 

@@ -62,9 +62,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreProcess\Processor.cs" />
+    <Compile Include="CoreProcess\TestFunction.cs" />
+    <Compile Include="Helper\Config.cs" />
     <Compile Include="Helper\HttpHelper.cs" />
+    <Compile Include="Helper\MailHelper.cs" />
     <Compile Include="Helper\XMLHelper.cs" />
     <Compile Include="Model\Match.cs" />
+    <Compile Include="Model\Quiz.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
