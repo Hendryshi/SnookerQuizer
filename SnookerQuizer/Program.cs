@@ -42,22 +42,22 @@ namespace SnookerQuizer
 
 			if(Game.IsGameProcess)
 			{
-				MatchList = Processor.ImportMatchsInEvent();
+				MatchList = Processor.ImportMatchsInEvent(false);
 				GamerList = Processor.ImportGamerList();
-				DateTime dtStamp = DateTime.Now;
+
+				//DateTime dtStamp = DateTime.Now;
+				DateTime dtStamp = new DateTime(2021, 4, 18, 8, 0, 0);
 				Processor.ProcessMatchAndGamer(dtStamp);
-				Processor.GenerateMail(dtStamp);
-
-
-				Processor.SaveDatasToLocal();
+				//Processor.GenerateMail(dtStamp);
+				//Processor.SaveDatasToLocal();
 			}
 
 			bool isTest = true;
 
 			if(isTest)
 			{
-				MatchList = Processor.ImportMatchsInEvent();
-				//TestFunction.SendMail();
+				//MatchList = Processor.ImportMatchsInEvent();
+				TestFunction.SendMail();
 				//TestFunction.SaveGamer();
 			}
 			

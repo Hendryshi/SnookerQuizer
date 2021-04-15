@@ -28,9 +28,24 @@ namespace SnookerQuizer.Helper
 
 			try
 			{
-				MailMessage mail = new MailMessage(_sender.Trim(), recipient.Trim());
+				MailMessage mail = new MailMessage();
 				mail.Subject = subject;
 				mail.Body = message;
+				mail.From = new MailAddress(_sender);
+
+				if(!string.IsNullOrEmpty(recipient))
+				{
+					string[] addressToSplit = recipient.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
+					try
+					{
+						foreach(string add in addressToSplit)
+							mail.To.Add(add);
+					}
+					catch(FormatException)
+					{
+						throw new Exception(string.Format("Incorrect \"To\" email address to format [{0}]", mail));
+					}
+				}
 
 				ContentType mimeType = null;
 				mimeType = new System.Net.Mime.ContentType("text/html");

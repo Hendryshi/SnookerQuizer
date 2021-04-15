@@ -76,13 +76,11 @@ namespace SnookerQuizer.CoreProcess
 			}
 		}
 
-		public static List<Match> ImportMatchsInEvent(bool saveToLocal = true)
+		public static List<Match> ImportMatchsInEvent(bool updateFromApi = true, bool saveToLocal = true)
 		{
 			Log.Information("");
 			Log.Information("------------- Loading Matchs ----------------------");
 			
-			List<Match> matchs = HttpHelper.GetMatchsInEvent();
-
 			if(XMLHelper.XMLExist(Program.MatchsInEventXml))
 			{
 				Log.Information("BackUp the Match Xml");
@@ -90,8 +88,18 @@ namespace SnookerQuizer.CoreProcess
 				XMLHelper.XMLCopy(Program.MatchsInEventXml, Path.Combine(backUpFolder, Program.MatchsInEventXml));
 			}
 
-			if(saveToLocal)
-				XMLHelper.SaveListToXML(matchs, Program.MatchsInEventXml);
+			List<Match> matchs = new List<Match>();
+
+			if(updateFromApi)
+			{
+				matchs = HttpHelper.GetMatchsInEvent();
+
+				if(saveToLocal)
+					XMLHelper.SaveListToXML(matchs, Program.MatchsInEventXml);
+			}
+			else
+				matchs = XMLHelper.LoadXMLToList<Match>(Program.MatchsInEventXml);
+
 
 			//foreach(Match m in matchs)
 			//	Console.WriteLine(m.GetHeadToHeadInfo());
@@ -140,7 +148,7 @@ namespace SnookerQuizer.CoreProcess
 				
 				foreach(Match m in lstMatch)
 				{
-					Log.Information(string.Format("Process the match [Round {0} Number {1}] {2} vs {3}", m.IdRound, m.IdNumber, m.Player1Name, m.Player2Name));
+					Log.Information(string.Format("Process the match [Round {0} Number {1}] {2} vs {3} Result: {4}", m.IdRound, m.IdNumber, m.Player1Name, m.Player2Name, m.Score));
 					foreach(GamerInfo gi in Program.GamerList)
 					{
 						Quiz mQuiz = gi.QuizList.Find(q => q.IdEvent == m.IdEvent && q.IdNumber == m.IdNumber);
@@ -219,7 +227,7 @@ namespace SnookerQuizer.CoreProcess
 			{
 				foreach(Match m in lstLastDayMatch)
 				{
-					strLastMatch += string.Format("<tr style=height: 160px;'>");
+					strLastMatch += string.Format("<tr style= height: 160px;'>");
 					strLastMatch += string.Format("<td style='width: 25%; height: 160px; text-align: center; border: 1px solid black;'>");
 					strLastMatch += string.Format("<p>{0}</p>", m.Player1Name);
 					strLastMatch += string.Format("<img alt='{0}' src='{1}' data-file-width='2195' data-file-height='2359' style='border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; width: 81px; height: 87px; display: block; margin-left: auto; margin-right: auto;' /></td>", m.Player1Name, m.GetPlayer(m.IdPlayer1)?.Photo);
@@ -236,15 +244,18 @@ namespace SnookerQuizer.CoreProcess
 				}
 			}
 
+			
+
 			emailResultBody = emailResultBody.Replace("[LastDayMatch]", strLastMatch);
 
 			//Generate Gamer point list
-			string strGamerInfo = string.Empty;
+			var strGamerInfo = new StringBuilder();
 
 			// Geneate table
+			strGamerInfo.AppendFormat("");
 
 
-			emailResultBody = emailResultBody.Replace("[GamerInfo]", strGamerInfo);
+			emailResultBody = emailResultBody.Replace("[GamerInfo]", strGamerInfo.ToString());
 
 
 			//Generate Today Match
