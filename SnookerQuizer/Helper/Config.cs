@@ -86,6 +86,48 @@ namespace SnookerQuizer.Helper.Config
 		}
 	}
 
+	public class Game
+	{
+		public static string UserList
+		{
+			get
+			{
+				return Common.ReadSettingString("Game.UserList", "");
+			}
+		}
+
+		public static string UserEmail
+		{
+			get
+			{
+				return Common.ReadSettingString("Game.UserEmail", "");
+			}
+		}
+
+		public static bool SendEmail
+		{
+			get
+			{
+				return Common.ReadSettingBool("Game.SendEmail", false);
+			}
+		}
+
+		public static bool IsGameInit
+		{
+			get
+			{
+				return Common.ReadSettingBool("Game.Init", false);
+			}
+		}
+
+		public static bool IsGameProcess
+		{
+			get
+			{
+				return Common.ReadSettingBool("Game.Process", false);
+			}
+		}
+	}
 	
 	public class SnookerAPI
 	{
@@ -150,6 +192,30 @@ namespace SnookerQuizer.Helper.Config
 			get
 			{
 				return Common.ReadSettingString("SnookerAPI.PlayersInSeasonUrl", "");
+			}
+		}
+
+		public static string GetPlayersRank
+		{
+			get
+			{
+				return Common.ReadSettingString("SnookerAPI.PlayersRank", "");
+			}
+		}
+
+		public static string GetWorldSnookerResult
+		{
+			get
+			{
+				return Common.ReadSettingString("SnookerAPI.WorldSnookerMatchResult", "");
+			}
+		}
+
+		public static string GetHeadToHead
+		{
+			get
+			{
+				return Common.ReadSettingString("SnookerAPI.HeadToHead", "");
 			}
 		}
 	}

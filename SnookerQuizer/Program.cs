@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SnookerQuizer.Model;
-using SnookerQuizer.Helper;
+using SnookerQuizer.Helper.Config;
 using SnookerQuizer.CoreProcess;
 using Serilog;
 using Serilog.Exceptions;
 using System.Configuration;
+
 using System.IO;
 
 namespace SnookerQuizer
@@ -15,33 +16,51 @@ namespace SnookerQuizer
 	class Program
 	{
 		public static int IdEvent = Convert.ToInt32(ConfigurationManager.AppSettings["Event"]);
-		public static string PlayersInEventXml = @"Event\players.xml";
-		public static string MatchsInEventXml = @"Event\matchs.xml";
-		public static string GamerFolder = @"Gamer\{0}.xml";
+		public static int WorldSnookerId = Convert.ToInt32(ConfigurationManager.AppSettings["WorldSnookerId"]);
+		
+		public static string PlayersInEventXml = "Players.xml";
+		public static string TranslatePlayersXml = "TranslatePlayers.xml";
+		public static string MatchsInEventXml = "Matchs.xml";
+		public static string GamerXml = @"Gamer{0}-{1}.xml";
 
 		public static List<SnookerPlayer> SnookerPlayerList;
+		public static List<TranslatePlayer> TranslatePlayerList;
 		public static List<Match> MatchList;
 		public static List<GamerInfo> GamerList;
 
-		public 
 
 		static void Main(string[] args)
 		{
 			ConfigureSerilog();
 
-			SnookerPlayerList = Processor.ImportPlayersInEvent();
-			MatchList = Processor.ImportMatchsInEvent();
+			if(Game.IsGameInit)
+			{
+				SnookerPlayerList = Processor.ImportPlayersInEvent();
+				TranslatePlayerList = Processor.ImportTranslatePlayers();
+				Processor.InitUserList();
+			}
+
+			if(Game.IsGameProcess)
+			{
+				MatchList = Processor.ImportMatchsInEvent();
+				GamerList = Processor.ImportGamerList();
+				DateTime dtStamp = DateTime.Now;
+				Processor.ProcessMatchAndGamer(dtStamp);
+				Processor.GenerateMail(dtStamp);
 
 
-			GamerList = Processor.ImportGamerList();
+				Processor.SaveDatasToLocal();
+			}
 
-			Processor.CalculatePoint();
-			Processor.SaveDatasToLocal();
+			bool isTest = true;
+
+			if(isTest)
+			{
+				MatchList = Processor.ImportMatchsInEvent();
+				//TestFunction.SendMail();
+				//TestFunction.SaveGamer();
+			}
 			
-			
-			//Test Function
-			//TestFunction.SendMail();
-
 			Console.WriteLine("Execution completed, press a key to continue");
 			Console.ReadKey();
 		}

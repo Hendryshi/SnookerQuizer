@@ -51,7 +51,7 @@ namespace SnookerQuizer.Helper
 			if(idEvent == 0)
 				idEvent = Program.IdEvent;
 
-			Log.Information(string.Format("Getting all the players in the event {0}", idEvent));
+			Log.Information(string.Format("API: Getting all the players in the event {0}", idEvent));
 			List<SnookerPlayer> players = HttpHelper.GetData<SnookerPlayer>(string.Format(Config.SnookerAPI.GetPlayersInEvent, idEvent));
 
 			if(players != null && players.Count > 0)
@@ -65,7 +65,7 @@ namespace SnookerQuizer.Helper
 			if(idEvent == 0)
 				idEvent = Program.IdEvent;
 
-			Log.Information(string.Format("Getting all the matchs in the event {0}", idEvent));
+			Log.Information(string.Format("API: Getting all the matchs in the event {0}", idEvent));
 			List<Match> matchs = HttpHelper.GetData<Match>(string.Format(Config.SnookerAPI.GetMatchsInEvent, idEvent));
 
 			if(matchs != null && matchs.Count > 0)
@@ -79,7 +79,7 @@ namespace SnookerQuizer.Helper
 			if(idEvent == 0)
 				idEvent = Program.IdEvent;
 
-			Log.Information(string.Format("Getting the specific match: Event [{0}] Round [{1}] Number [{2}]", idEvent, idRound, idNumber));
+			Log.Information(string.Format("API: Getting the specific match: Event [{0}] Round [{1}] Number [{2}]", idEvent, idRound, idNumber));
 			List<Match> matchs = HttpHelper.GetData<Match>(string.Format(Config.SnookerAPI.GetMatch, idEvent, idRound, idNumber));
 
 			if(matchs != null && matchs.Count > 0)
@@ -90,13 +90,24 @@ namespace SnookerQuizer.Helper
 
 		public static SnookerPlayer GetPlayer(int idPlayer)
 		{
-			Log.Information(string.Format("Getting the specific player: {0}", idPlayer));
+			Log.Information(string.Format("API: Getting the specific player: {0}", idPlayer));
 			List<SnookerPlayer> players = HttpHelper.GetData<SnookerPlayer>(string.Format(Config.SnookerAPI.GetPlayer, idPlayer));
 			
 			if(players != null && players.Count > 0)
 				return players.First();
 			else
 				throw new Exception("No Snooker Player has been retrived from the API. Please Check !");
+		}
+
+		public static List<RankingInfo> GetPlayerRank(int idSeason = 2020)
+		{
+			Log.Information(string.Format("API: Getting all the player ranking info for season {0}", idSeason));
+			List<RankingInfo> players = HttpHelper.GetData<RankingInfo>(string.Format(Config.SnookerAPI.GetPlayersRank, idSeason));
+
+			if(players != null && players.Count > 0)
+				return players.OrderBy(c => c.PlayerID).ToList();
+			else
+				throw new Exception("No Ranking info has been retrived from the API. Please Check !");
 		}
 
 	}
