@@ -18,7 +18,7 @@ namespace SnookerQuizer.CoreProcess
 		{
 			Log.Information("");
 			Log.Information("------------- Loading Snooker Players -------------");
-			
+
 			List<SnookerPlayer> players = new List<SnookerPlayer>();
 			if(!XMLHelper.XMLExist(Program.PlayersInEventXml))
 			{
@@ -33,7 +33,7 @@ namespace SnookerQuizer.CoreProcess
 				}
 				XMLHelper.SaveListToXML(players, Program.PlayersInEventXml);
 			}
-			else 
+			else
 				players = XMLHelper.LoadXMLToList<SnookerPlayer>(Program.PlayersInEventXml);
 
 			return players;
@@ -55,8 +55,8 @@ namespace SnookerQuizer.CoreProcess
 			}
 			else
 				players = XMLHelper.LoadXMLToList<TranslatePlayer>(Program.TranslatePlayersXml);
-			
-			return players;	
+
+			return players;
 		}
 
 		public static void InitUserList()
@@ -80,7 +80,7 @@ namespace SnookerQuizer.CoreProcess
 		{
 			Log.Information("");
 			Log.Information("------------- Loading Matchs ----------------------");
-			
+
 			if(XMLHelper.XMLExist(Program.MatchsInEventXml))
 			{
 				Log.Information("BackUp the Match Xml");
@@ -114,13 +114,13 @@ namespace SnookerQuizer.CoreProcess
 		{
 			Log.Information("");
 			Log.Information("------------- Loading Gamer List ------------------");
-			
+
 			List<GamerInfo> gamerInfos = new List<GamerInfo>();
 			foreach(string xmlName in XMLHelper.GetXMLList("Gamer*.xml"))
 			{
 				gamerInfos.Add(XMLHelper.LoadXML<GamerInfo>(xmlName));
 			}
-			
+
 			return gamerInfos;
 		}
 
@@ -145,7 +145,7 @@ namespace SnookerQuizer.CoreProcess
 			if(lstMatch.Count() > 0)
 			{
 				Log.Information(string.Format("Found {0} match ended during the last day", lstMatch.Count()));
-				
+
 				foreach(Match m in lstMatch)
 				{
 					Log.Information(string.Format("Process the match [Round {0} Number {1}] {2} vs {3} Result: {4}", m.IdRound, m.IdNumber, m.Player1Name, m.Player2Name, m.Score));
@@ -227,53 +227,70 @@ namespace SnookerQuizer.CoreProcess
 			{
 				foreach(Match m in lstLastDayMatch)
 				{
-					strLastMatch += string.Format("<tr style= height: 160px;'>");
-					strLastMatch += string.Format("<td style='width: 25%; height: 160px; text-align: center; border: 1px solid black;'>");
-					strLastMatch += string.Format("<p>{0}</p>", m.Player1Name);
-					strLastMatch += string.Format("<img alt='{0}' src='{1}' data-file-width='2195' data-file-height='2359' style='border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; width: 81px; height: 87px; display: block; margin-left: auto; margin-right: auto;' /></td>", m.Player1Name, m.GetPlayer(m.IdPlayer1)?.Photo);
-					strLastMatch += string.Format("<td style='width: 25%; text-align: center; height: 160px; border: 1px solid black;'>");
+					strLastMatch += string.Format("<tr style='height:160px;border:1px solid black;'>");
+					strLastMatch += string.Format("<td style='width:25%;height:160px;text-align:center;'>");
+					strLastMatch += string.Format("<p style='text-overflow:clip;overflow:hidden;white-space:nowrap;'>{0}</p>", m.Player1Name);
+					strLastMatch += string.Format("<img alt='{0}' src='{1}' style='border-top-left-radius:50%;border-top-right-radius:50%;border-bottom-right-radius:50%;border-bottom-left-radius:50%;width:81px;height:87px;display:block;margin-left:auto;margin-right:auto;'/></td>", m.Player1Name, m.GetPlayer(m.IdPlayer1)?.Photo);
+					strLastMatch += string.Format("<td style='width:25%;text-align:center;height:160px;'>");
 					strLastMatch += string.Format("<h3>{0}</h3>", m.Score);
-					strLastMatch += string.Format("<a href='https://www.w3schools.com' style='text-decoration: underline;'>比分详情</a></td>");
-					strLastMatch += string.Format("<td style='width: 25%; height:160px; text-align: center;'>");
-					strLastMatch += string.Format("<p>{0}</p>", m.Player2Name);
-					strLastMatch += string.Format("<img alt='{0}' src='{1}' data-file-width='2195' data-file-height='2359' style='border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; width: 81px; height: 87px; display: block; margin-left: auto; margin-right: auto;' /></td>", m.Player2Name, m.GetPlayer(m.IdPlayer2)?.Photo);
+					strLastMatch += string.Format("<a href='{0}' style='text-decoration:underline;'>比分详情</a></td>", m.GetWorldSnookerResult());
+					strLastMatch += string.Format("<td style='width:25%;height:160px;text-align:center;'>");
+					strLastMatch += string.Format("<p style='text-overflow:clip;overflow:hidden;white-space:nowrap;'>{0}</p>", m.Player2Name);
+					strLastMatch += string.Format("<img alt='{0}' src='{1}' style='border-top-left-radius:50%;border-top-right-radius:50%;border-bottom-right-radius:50%;border-bottom-left-radius:50%; width:81px; height:87px; display:block; margin-left:auto; margin-right: auto;'/></td>", m.Player2Name, m.GetPlayer(m.IdPlayer2)?.Photo);
 					strLastMatch += string.Format("</tr>");
 					strLastMatch += string.Format("<tr>");
-					strLastMatch += string.Format("<td colspan='3' style = 'text-align: center; width:75%;'><strong>YeJia</strong>5:10 &nbsp; <strong>TianLe</strong>10:5</td>");
+					strLastMatch += string.Format("<td colspan='3' style = 'text-align: center; width:75%;'><strong>{0}</strong></td>", GetPotentialPrediction(m));
 					strLastMatch += string.Format("</tr>");
 				}
 			}
 
-			
-
 			emailResultBody = emailResultBody.Replace("[LastDayMatch]", strLastMatch);
 
 			//Generate Gamer point list
-			var strGamerInfo = new StringBuilder();
+			string strGamerInfo = string.Empty;
+			//Program.GamerList
+
 
 			// Geneate table
-			strGamerInfo.AppendFormat("");
+			foreach(GamerInfo gi in Program.GamerList) 
+			{
+				
+			}
 
-
-			emailResultBody = emailResultBody.Replace("[GamerInfo]", strGamerInfo.ToString());
+			emailResultBody = emailResultBody.Replace("[GamerInfo]", strGamerInfo);
 
 
 			//Generate Today Match
-			string strTodayMatch = string.Empty;
+			var strTodayMatch = new StringBuilder();
 			List<Match> lstTodayMatch = Program.MatchList.FindAll(m => m.DtSchedule != null && m.DtSchedule.Value.Date == dtStamp.Date);
 			if(lstTodayMatch.Count() > 0)
 			{
 				foreach(Match m in lstTodayMatch)
 				{
 					//Generate Today Match
+					strTodayMatch.AppendFormat("<tr style='height: 160px; border: 1px solid black;'>");
+					strTodayMatch.AppendFormat("<td style='width: 23.807749627421753%; height: 160px; text-align: center;'>");
+					strTodayMatch.AppendFormat("<p style='text-overflow:clip;overflow:hidden;white-space:nowrap'>{0}</p>", m.Player1Name);
+					strTodayMatch.AppendFormat("<img alt='{0}' src='{1}' decoding='async' style='border-top-left-radius:50%;border-top-right-radius:50%;border-bottom-right-radius:50%;border-bottom-left-radius:50%; width: 81px; height: 87px; display: block; margin-left: auto; margin-right: auto;'/></td>", m.Player1Name, m.GetPlayer(m.IdPlayer1)?.Photo);
+					strTodayMatch.AppendFormat("<td style='width: 26.192250372578243%; text-align: center; height: 160px;'>");
+					strTodayMatch.AppendFormat("<h3>{0}</h3>", m.DtSchedule?.ToString("hh:mm"));
+					strTodayMatch.AppendFormat("<h3>{0}</h3>", m.Score);
+					strTodayMatch.AppendFormat("<a href='{0}' style='text-decoration: underline; '>历史战绩</a></td>", m.GetHeadToHeadInfo());
+					strTodayMatch.AppendFormat("<td style='width: 25%; height: 160px; text-align: center;'>");
+					strTodayMatch.AppendFormat("<p style='text-overflow:clip;overflow:hidden;white-space:nowrap'>{0}</p>", m.Player2Name);
+					strTodayMatch.AppendFormat("<img alt='{0}' src='{1}' decoding='async' style='border-top-left-radius:50%;border-top-right-radius:50%;border-bottom-right-radius:50%;border-bottom-left-radius:50%; width: 81px; height: 87px; display: block; margin-left: auto; margin-right: auto;'/></td>", m.Player2Name, m.GetPlayer(m.IdPlayer2)?.Photo);
+					strTodayMatch.AppendFormat("</tr>");
+					strTodayMatch.AppendFormat("<tr>");
+					strTodayMatch.AppendFormat("<td colspan='3' style = 'text-align: center; width:75%;'><strong>{0}</strong></td>", GetPotentialPrediction(m));
+					strTodayMatch.AppendFormat("</tr>");
 				}
 			}
 
-			emailResultBody = emailResultBody.Replace("[TodayMatch]", strTodayMatch);
-
+			emailResultBody = emailResultBody.Replace("[TodayMatch]", strTodayMatch.ToString());
+			//end of modif
 			string htmlName = string.Format("GameResult-{0}.html", dtStamp.ToString("yyyymmdd"));
 			Log.Information(string.Format("Save genetared html file to local: {0}", htmlName));
-			string emailPath = Path.Combine(ConfigurationManager.AppSettings["DataRootFolder"], ConfigurationManager.AppSettings["EmailTemplate"]);
+			string emailPath = Path.Combine(ConfigurationManager.AppSettings["DataRootFolder"], ConfigurationManager.AppSettings["EmailFolder"]);
 			File.WriteAllText(Path.Combine(emailPath, htmlName), emailResultBody);
 
 			if(Game.SendEmail)
