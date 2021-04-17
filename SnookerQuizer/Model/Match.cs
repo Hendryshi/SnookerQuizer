@@ -135,6 +135,7 @@ namespace SnookerQuizer.Model
 		public string Nationality;
 		public string ShortName;
 		public string Photo;
+		public string WorldSnookerPhoto;
 		public int RankPosition;
 
 		public string DisplayName()

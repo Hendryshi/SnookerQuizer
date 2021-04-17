@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
+using SnookerQuizer.Helper.Config;
 
 namespace SnookerQuizer.Helper
 {
@@ -12,7 +11,6 @@ namespace SnookerQuizer.Helper
 	{
 		public static void SendMail(string recipient, string subject, string message)
 		{
-			
 			SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
 
 			string _sender = "yejia.shi@hotmail.com";

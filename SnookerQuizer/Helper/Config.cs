@@ -127,6 +127,22 @@ namespace SnookerQuizer.Helper.Config
 				return Common.ReadSettingBool("Game.Process", false);
 			}
 		}
+
+		public static bool IsTest
+		{
+			get
+			{
+				return Common.ReadSettingBool("Game.Test", false);
+			}
+		}
+
+		public static bool CheckMail
+		{
+			get
+			{
+				return Common.ReadSettingBool("Game.CheckMail", false);
+			}
+		}
 	}
 	
 	public class SnookerAPI

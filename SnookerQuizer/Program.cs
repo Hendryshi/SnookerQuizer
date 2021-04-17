@@ -32,37 +32,46 @@ namespace SnookerQuizer
 		static void Main(string[] args)
 		{
 			ConfigureSerilog();
-
-			if(Game.IsGameInit)
+			try
 			{
-				SnookerPlayerList = Processor.ImportPlayersInEvent();
-				TranslatePlayerList = Processor.ImportTranslatePlayers();
-				Processor.InitUserList();
-			}
+				//DateTime dtStamp = new DateTime(2021, 04, 18, 8, 0, 0);
+				DateTime dtStamp = DateTime.Now;
+				Log.Information("------------- Staring Process Snooker Quiz Program ---------------------");
+				Log.Information(string.Format("------------------{0}-------------------------------------", dtStamp.ToString("MM/dd/yyyy HH:mm")));
+				Log.Information("");
 
-			if(Game.IsGameProcess)
+				if(Game.IsGameInit)
+				{
+					SnookerPlayerList = Processor.ImportPlayersInEvent();
+					TranslatePlayerList = Processor.ImportTranslatePlayers();
+					Processor.InitUserList();
+				}
+
+				if(Game.IsGameProcess)
+				{
+					MatchList = Processor.ImportMatchsInEvent(true);
+					GamerList = Processor.ImportGamerList();
+
+					Processor.ProcessMatchAndGamer(dtStamp);
+					Processor.GenerateMail(dtStamp);
+
+					if(!Game.CheckMail)
+						Processor.SaveDatasToLocal();
+				}
+
+				if(Game.IsTest)
+				{
+					//MatchList = Processor.ImportMatchsInEvent();
+					TestFunction.TestMatchResult();
+					//TestFunction.SendMail();
+				}
+
+				Log.Information("Execution completed, press a key to continue");
+			}
+			catch(Exception ex)
 			{
-				MatchList = Processor.ImportMatchsInEvent(false);
-				GamerList = Processor.ImportGamerList();
-
-				//DateTime dtStamp = DateTime.Now;
-				DateTime dtStamp = new DateTime(2021, 4, 18, 8, 0, 0);
-				Processor.ProcessMatchAndGamer(dtStamp);
-				//Processor.GenerateMail(dtStamp);
-				//Processor.SaveDatasToLocal();
+				Log.Error(ex, "Execution completed with error, press a key to continue");
 			}
-
-			bool isTest = true;
-
-			if(isTest)
-			{
-				//MatchList = Processor.ImportMatchsInEvent();
-				TestFunction.SendMail();
-				//TestFunction.SaveGamer();
-			}
-			
-			Console.WriteLine("Execution completed, press a key to continue");
-			Console.ReadKey();
 		}
 
 		private static void ConfigureSerilog()

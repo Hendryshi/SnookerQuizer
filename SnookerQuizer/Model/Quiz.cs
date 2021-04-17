@@ -16,6 +16,8 @@ namespace SnookerQuizer.Model
 		public int IdWinner;
 		public int Score1;
 		public int Score2;
+		public bool? WinPlayer;
+		public bool? WinScore;
 		public DateTime? dtUpdate;
 		public int GamePoint = 0;
 		private string score;
@@ -95,6 +97,38 @@ namespace SnookerQuizer.Model
 		public GamerInfo()
 		{
 
+		}
+
+		public string GetGamerSummary(DateTime dtStamp)
+		{
+			string result = string.Empty;
+			
+			int pointToday = QuizList.FindAll(q => q.dtUpdate == dtStamp).Sum(p => p.GamePoint);
+			int winScoreCount = QuizList.FindAll(q => q.dtUpdate == dtStamp && q.WinScore.HasValue && q.WinScore == true).Count();
+			int winPlayerCount = QuizList.FindAll(q => q.dtUpdate == dtStamp && q.WinPlayer.HasValue && q.WinPlayer == true).Count();
+
+			if(pointToday == 0)
+				result += string.Format("玩家 {0} 昨日一无所获，请继续努力!", UserName);
+			else
+			{
+				result += string.Format("玩家 {0} 猜中{1}场比赛晋级名额 ", UserName, winPlayerCount);
+				if(winScoreCount > 0)
+					result += string.Format(", 并且还猜中了{0}场比分 (运气真好!) ", winScoreCount);
+
+				result += string.Format("共获得{0}点积分!", pointToday);
+			}
+
+			return result;
+		}
+
+		public int GetWinnerScoreCount()
+		{
+			return QuizList.FindAll(q => q.WinScore.HasValue && q.WinScore == true).Count();
+		}
+
+		public int GetWinnerPlayerCount()
+		{
+			return QuizList.FindAll(q => q.WinPlayer.HasValue && q.WinPlayer == true).Count();
 		}
 	}
 }

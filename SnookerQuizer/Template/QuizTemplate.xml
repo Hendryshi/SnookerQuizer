@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<QuizList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Quiz>
+      <IdEvent>0</IdEvent>
+      <IdRound>0</IdRound>
+      <IdNumber>0</IdNumber>
+      <IdPlayer1>0</IdPlayer1>
+      <IdPlayer2>0</IdPlayer2>
+      <IdWinner>0</IdWinner>
+      <Score1>0</Score1>
+      <Score2>0</Score2>
+      <dtUpdate xsi:nil="true" />
+      <GamePoint>0</GamePoint>
+      <Score>0 : 0</Score>
+      <Player1Name />
+      <Player2Name />
+      <WinnerName />
+    </Quiz>
+    <Quiz>
+      <IdEvent>0</IdEvent>
+      <IdRound>0</IdRound>
+      <IdNumber>0</IdNumber>
+      <IdPlayer1>0</IdPlayer1>
+      <IdPlayer2>0</IdPlayer2>
+      <IdWinner>0</IdWinner>
+      <Score1>0</Score1>
+      <Score2>0</Score2>
+      <dtUpdate xsi:nil="true" />
+      <GamePoint>0</GamePoint>
+      <Score>0 : 0</Score>
+      <Player1Name />
+      <Player2Name />
+      <WinnerName />
+    </Quiz>
+</QuizList>
