@@ -334,7 +334,7 @@ namespace SnookerQuizer.CoreProcess
 
 			//Generate Today Match
 			var strTodayMatch = new StringBuilder();
-			List<Match> lstTodayMatch = Program.MatchList.FindAll(m => m.DtSchedule != null && m.DtSchedule.Value.Date == dtStamp.Date);
+			List<Match> lstTodayMatch = Program.MatchList.FindAll(m => m.DtSchedule != null && m.DtSchedule.Value.Date == dtStamp.Date).OrderBy(d => d.DtSchedule).ToList();
 			if(lstTodayMatch.Count() > 0)
 			{
 				foreach(Match m in lstTodayMatch)
@@ -349,7 +349,7 @@ namespace SnookerQuizer.CoreProcess
 					strTodayMatch.AppendFormat("<td><p style='text-overflow:clip;overflow:hidden;white-space:nowrap'>{0}</p><img alt='{1}' src='{2}' /></td>", m.Player1Name, m.IdPlayer1, m.GetPlayer(m.IdPlayer1)?.WorldSnookerPhoto);
 
 					strTodayMatch.AppendFormat("<td>");
-					strTodayMatch.AppendFormat("<h3>{0}</h3>", m.DtSchedule?.ToString("HH:mm"));
+					strTodayMatch.AppendFormat("<h3>{0}</h3>", m.DtSchedule?.AddHours(8).ToString("HH:mm"));
 					strTodayMatch.AppendFormat("<h3>{0}</h3>", m.Score);
 					strTodayMatch.AppendFormat("<a href='{0}' style='text-decoration: underline; '>历史战绩</a></td>", m.GetHeadToHeadInfo());
 					strTodayMatch.AppendFormat("<td><p style='text-overflow:clip;overflow:hidden;white-space:nowrap'>{0}</p><img alt='{1}' src='{2}' /></td>", m.Player2Name, m.IdPlayer2, m.GetPlayer(m.IdPlayer2)?.WorldSnookerPhoto);
@@ -389,7 +389,7 @@ namespace SnookerQuizer.CoreProcess
 			emailResultBody = emailResultBody.Replace("[TodayMatch]", strTodayMatch.ToString());
 			
 
-			string htmlName = string.Format("GameResult-{0}.html", dtStamp.ToString("yyyymmdd"));
+			string htmlName = string.Format("GameResult-{0}.html", dtStamp.ToString("yyyyMMdd"));
 			Log.Information(string.Format("Save genetared html file to local: {0}", htmlName));
 			string emailPath = Path.Combine(ConfigurationManager.AppSettings["DataRootFolder"], ConfigurationManager.AppSettings["EmailFolder"]);
 			File.WriteAllText(Path.Combine(emailPath, htmlName), emailResultBody);
@@ -399,10 +399,13 @@ namespace SnookerQuizer.CoreProcess
 				Log.Information("");
 				Log.Information("------------- Sending Email ---------------------");
 
-				string recipient = Game.CheckMail ? "yejia.shi@hotmail.com" : Game.UserEmail;
+				string recipientlst = Game.CheckMail ? Game.TestEmail : Game.UserEmail;
 
-				Log.Information(string.Format("Email send to {0}", recipient));
-				MailHelper.SendMail(Game.UserEmail, string.Format("斯诺克竞猜 {0}", dtStamp.ToString("MM/dd")), emailResultBody);
+				foreach(string receipt in recipientlst.Split(';'))
+				{
+					Log.Information(string.Format("Email send to {0}", receipt));
+					MailHelper.SendMail(receipt, string.Format("斯诺克竞猜 {0}", dtStamp.ToString("MM/dd")), emailResultBody);
+				}
 			}
 		}
 

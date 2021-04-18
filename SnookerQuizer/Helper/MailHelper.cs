@@ -31,6 +31,11 @@ namespace SnookerQuizer.Helper
 				mail.Body = message;
 				mail.From = new MailAddress(_sender);
 
+				//string file = @"D:\WorkSpace\Data\SnookerQuizer\World Championship 2021\PlayerPhoto\2.png";
+				//mail.Attachments.Add(new Attachment(file, MediaTypeNames.Application.Octet));
+				//mail.Attachments[0].ContentDisposition.Inline = true;
+				//mail.Attachments[0].ContentId = "2.png";
+
 				if(!string.IsNullOrEmpty(recipient))
 				{
 					string[] addressToSplit = recipient.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);

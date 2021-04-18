@@ -103,6 +103,13 @@ namespace SnookerQuizer.Helper.Config
 				return Common.ReadSettingString("Game.UserEmail", "");
 			}
 		}
+		public static string TestEmail
+		{
+			get
+			{
+				return Common.ReadSettingString("Game.TestEmail", "");
+			}
+		}
 
 		public static bool SendEmail
 		{

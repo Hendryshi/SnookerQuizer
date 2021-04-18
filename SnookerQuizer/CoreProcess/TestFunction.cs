@@ -13,7 +13,7 @@ namespace SnookerQuizer.CoreProcess
 		{
 			string HTMLBody = File.ReadAllText(@"C:\Users\SHI YEJIA\Desktop\emailTemplate.html");
 			
-			MailHelper.SendMail("yejia.shi@hotmail.com", "Result", HTMLBody);
+			MailHelper.SendMail("yejia.shi@hotmail.com;yejia.shi@sword-group.com;haifan.zhang@vinci-energies.com", "Result", HTMLBody);
 		}
 
 		public static void SaveGamer()
@@ -28,6 +28,20 @@ namespace SnookerQuizer.CoreProcess
 			GamerInfo gi1 = new GamerInfo("Yejia", 1014, lstQuiz, lstPoint);
 
 			XMLHelper.SaveToXML(gi1, string.Format(Program.GamerXml, Program.IdEvent, gi1.UserName));
+		}
+
+		public static void TestWhatYouWant()
+		{
+			List<SnookerPlayer> lstPl = Processor.ImportPlayersInEvent();
+			foreach(SnookerPlayer pl in lstPl)
+			{
+				if(pl.WorldSnookerPhoto != null)
+				{
+					Console.WriteLine(pl.IdPlayer);
+					Console.WriteLine(pl.WorldSnookerPhoto);
+				}
+			}
+			Console.ReadKey();
 		}
 
 		public static void TestMatchResult()
@@ -45,20 +59,20 @@ namespace SnookerQuizer.CoreProcess
 			Processor.ProcessMatchAndGamer(dtStamp1);
 			Processor.GenerateMail(dtStamp1);
 
-			DateTime dtStamp2 = new DateTime(2021, 04, 19, 1, 5, 0);
-			UpdateMatch(1014, 7, 10, null, new DateTime(2021, 04, 18, 20, 5, 0), null, 1, 10, 9);
-			Processor.ProcessMatchAndGamer(dtStamp2);
-			Processor.GenerateMail(dtStamp2);
+			//DateTime dtStamp2 = new DateTime(2021, 04, 19, 1, 5, 0);
+			//UpdateMatch(1014, 7, 10, null, new DateTime(2021, 04, 18, 20, 5, 0), null, 1, 10, 9);
+			//Processor.ProcessMatchAndGamer(dtStamp2);
+			//Processor.GenerateMail(dtStamp2);
 
-			DateTime dtStamp3 = new DateTime(2021, 04, 20, 1, 5, 0);
-			UpdateMatch(1014, 7, 11, null, new DateTime(2021, 04, 19, 20, 5, 0), null, 1, 10, 7);
-			Processor.ProcessMatchAndGamer(dtStamp3);
-			Processor.GenerateMail(dtStamp3);
+			//DateTime dtStamp3 = new DateTime(2021, 04, 20, 1, 5, 0);
+			//UpdateMatch(1014, 7, 11, null, new DateTime(2021, 04, 19, 20, 5, 0), null, 1, 10, 7);
+			//Processor.ProcessMatchAndGamer(dtStamp3);
+			//Processor.GenerateMail(dtStamp3);
 
-			DateTime dtStamp4 = new DateTime(2021, 04, 21, 1, 5, 0);
-			UpdateMatch(1014, 7, 8, null, new DateTime(2021, 04, 19, 20, 5, 0), null, 1, 10, 9);
-			Processor.ProcessMatchAndGamer(dtStamp4);
-			Processor.GenerateMail(dtStamp4);
+			//DateTime dtStamp4 = new DateTime(2021, 04, 21, 1, 5, 0);
+			//UpdateMatch(1014, 7, 8, null, new DateTime(2021, 04, 19, 20, 5, 0), null, 1, 10, 9);
+			//Processor.ProcessMatchAndGamer(dtStamp4);
+			//Processor.GenerateMail(dtStamp4);
 		}
 
 		public static void UpdateMatch(int idEvent, int idRound, int idNumber, DateTime? dtStart, DateTime? dtEnd, DateTime? dtSchedule, int idWinner = 0, int score1 = 0, int score2 = 0, int idPlayer1 = 0, int idPlayer2 = 0)
