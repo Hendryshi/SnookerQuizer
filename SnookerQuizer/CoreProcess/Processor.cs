@@ -347,9 +347,9 @@ namespace SnookerQuizer.CoreProcess
 					strTodayMatch.AppendFormat("<tbody>");
 					strTodayMatch.AppendFormat("<tr style='border:1px solid #AAAAAA'>");
 					strTodayMatch.AppendFormat("<td><p style='text-overflow:clip;overflow:hidden;white-space:nowrap'>{0}</p><img alt='{1}' src='{2}' /></td>", m.Player1Name, m.IdPlayer1, m.GetPlayer(m.IdPlayer1)?.WorldSnookerPhoto);
-
 					strTodayMatch.AppendFormat("<td>");
-					strTodayMatch.AppendFormat("<h3>{0}</h3>", m.DtSchedule?.AddHours(8).ToString("HH:mm"));
+					string sessionDate = string.Join("<br />", m.GetSessionDateList().Where(s => s.Date == dtStamp.Date).Select(l => l.AddHours(6).ToString("HH:mm")));
+					strTodayMatch.AppendFormat("<h3>{0}{1}</h3>", m.DtSchedule?.AddHours(8).ToString("HH:mm"), string.IsNullOrEmpty(sessionDate) ? "" : "<br />"+sessionDate);
 					strTodayMatch.AppendFormat("<h3>{0}</h3>", m.Score);
 					strTodayMatch.AppendFormat("<a href='{0}' style='text-decoration: underline; '>历史战绩</a></td>", m.GetHeadToHeadInfo());
 					strTodayMatch.AppendFormat("<td><p style='text-overflow:clip;overflow:hidden;white-space:nowrap'>{0}</p><img alt='{1}' src='{2}' /></td>", m.Player2Name, m.IdPlayer2, m.GetPlayer(m.IdPlayer2)?.WorldSnookerPhoto);
@@ -413,7 +413,7 @@ namespace SnookerQuizer.CoreProcess
 		{
 			string result = string.Empty;
 
-			Quiz mQuiz = gi.QuizList.Find(q => q.IdEvent == mMatch.IdEvent && q.IdNumber == mMatch.IdNumber);
+			Quiz mQuiz = gi.QuizList.Find(q => q.IdEvent == mMatch.IdEvent && q.IdRound == mMatch.IdRound && q.IdNumber == mMatch.IdNumber);
 			if(mQuiz != null)
 			{
 				if(mQuiz.IdWinner == mMatch.IdPlayer1 || mQuiz.IdWinner == mMatch.IdPlayer2)

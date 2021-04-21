@@ -4,6 +4,8 @@ using System.IO;
 using SnookerQuizer.Helper;
 using SnookerQuizer.Helper.Config;
 using SnookerQuizer.Model;
+using Serilog;
+using System.Linq;
 
 namespace SnookerQuizer.CoreProcess
 {
@@ -32,14 +34,16 @@ namespace SnookerQuizer.CoreProcess
 
 		public static void TestWhatYouWant()
 		{
-			List<SnookerPlayer> lstPl = Processor.ImportPlayersInEvent();
-			foreach(SnookerPlayer pl in lstPl)
+			Program.SnookerPlayerList = Processor.ImportPlayersInEvent();
+			Program.TranslatePlayerList = Processor.ImportTranslatePlayers();
+			Program.MatchList = Processor.ImportMatchsInEvent(false, false);
+
+
+			foreach(Match m in Program.MatchList)
 			{
-				if(pl.WorldSnookerPhoto != null)
-				{
-					Console.WriteLine(pl.IdPlayer);
-					Console.WriteLine(pl.WorldSnookerPhoto);
-				}
+				string result = string.Join("<br />", m.GetSessionDateList().Where(s => s.Date == DateTime.Today.Date).Select(l => l.AddHours(8).ToString("HH:mm")));
+				if(!string.IsNullOrEmpty(result))
+					Console.WriteLine(result);
 			}
 			Console.ReadKey();
 		}

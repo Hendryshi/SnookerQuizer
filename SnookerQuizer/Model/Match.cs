@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using SnookerQuizer.Helper.Config;
+using System.Globalization;
 
 namespace SnookerQuizer.Model
 {
@@ -121,6 +122,24 @@ namespace SnookerQuizer.Model
 		public string GetHeadToHeadInfo()
 		{
 			return string.Format(SnookerAPI.GetHeadToHead, GetPlayer(IdPlayer1)?.DisplayHeadToHeadName(), GetPlayer(IdPlayer2)?.DisplayHeadToHeadName());
+		}
+
+		public List<DateTime> GetSessionDateList()
+		{
+			List<DateTime> lstSessionDate = new List<DateTime>();
+			if(!string.IsNullOrEmpty(Sessions))
+			{
+				foreach(string session in Sessions.Split(';'))
+				{
+					if(!string.IsNullOrEmpty(session))
+					{
+						DateTime dtSession;
+						if(DateTime.TryParseExact(session.Trim(), "dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtSession))
+							lstSessionDate.Add(dtSession);
+					}
+				}
+			}
+			return lstSessionDate;
 		}
 	}
 
