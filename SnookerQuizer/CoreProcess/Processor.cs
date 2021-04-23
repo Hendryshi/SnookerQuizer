@@ -301,8 +301,8 @@ namespace SnookerQuizer.CoreProcess
 						{
 							strGamerTable.AppendFormat("<th style='font-weight: bold;'>{0}</th>", gp.dtPoint.ToString("MM/dd"));
 						}
-						strGamerTable.AppendFormat("<th style='font-weight: bold;'>总晋级数</th>");
-						strGamerTable.AppendFormat("<th style='font-weight: bold;'>总比分数</th>");
+						strGamerTable.AppendFormat("<th style='font-weight: bold;'>晋级(比分)</th>");
+						strGamerTable.AppendFormat("<th style='font-weight: bold;'>奖金</th>");
 						strGamerTable.AppendFormat("</tr>");
 						strGamerTable.AppendFormat("</thead>");
 						strGamerTable.AppendFormat("<tbody>");
@@ -321,8 +321,8 @@ namespace SnookerQuizer.CoreProcess
 						strGamerTable.AppendFormat("<td>{0}</td>", gp.valPoint);
 					}
 
-					strGamerTable.AppendFormat("<td>{0}</td>", gi.GetWinnerPlayerCount());
-					strGamerTable.AppendFormat("<td>{0}</td>", gi.GetWinnerScoreCount());
+					strGamerTable.AppendFormat("<td>{0}({1})</td>", gi.GetWinnerPlayerCount(), gi.GetWinnerScoreCount());
+					strGamerTable.AppendFormat("<td>{0}</td>", GetGamerDiffScore(gi));
 					strGamerTable.AppendFormat("</tr>");
 				}
 
@@ -425,6 +425,21 @@ namespace SnookerQuizer.CoreProcess
 
 				}
 			}
+
+			return result;
+		}
+
+		private static int GetGamerDiffScore(GamerInfo gi)
+		{
+			int result = 0;
+			int pointMax = Program.GamerList.Max(g => g.TotalPoint);
+			if(gi.TotalPoint == pointMax)
+			{
+				foreach(GamerInfo g in Program.GamerList)
+					result += pointMax - g.TotalPoint;
+			}
+			else
+				result = gi.TotalPoint - pointMax;
 
 			return result;
 		}

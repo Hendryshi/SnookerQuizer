@@ -63,6 +63,7 @@ namespace SnookerQuizer.Model
 		private string player1Name;
 		private string player2Name;
 		private string winnerName;
+		public string Note;
 
 		public string Score
 		{
