@@ -232,6 +232,7 @@ namespace SnookerQuizer.CoreProcess
 				emailResultBody = File.ReadAllText(ConfigurationManager.AppSettings["FinalEmailTemplate"]);
 
 			int matchCount = 0;
+			string champion = string.Empty;
 
 			//Generate LastDay Match
 			var strLastMatch = new StringBuilder();
@@ -242,6 +243,9 @@ namespace SnookerQuizer.CoreProcess
 				matchCount = lstLastDayMatch.Count();
 				foreach(Match m in lstLastDayMatch)
 				{
+					if(Game.UseFinalEmailTemplate)
+						champion = m.GetPlayer(m.IdWinner).DisplayChineseName(false);
+
 					strLastMatch.AppendFormat("<tr>");
 					strLastMatch.AppendFormat("<td style='font-size:1px;line-height:1px'></td>");
 					strLastMatch.AppendFormat("<td style='width:18px;min-width:18px'></td>");
@@ -411,7 +415,7 @@ namespace SnookerQuizer.CoreProcess
 						prefix = "倒霉蛋";
 
 					if(index == 1)
-						strFinalGamerResult.AppendFormat("<b style='font-size: 20px; color: red'> 恭喜玩家 {0} 获得本次比赛冠军</b>", gi.UserName);
+						strFinalGamerResult.AppendFormat("<b style='font-size: 20px; color: red'> 恭喜玩家 {0} 获得 冠军</b>", gi.UserName);
 					else if(index == Program.GamerList.Count())
 						strFinalGamerResult.AppendFormat("<b style='font-size: 20px; color: blue'> {0} {1}</b>", prefix, gi.UserName);
 					else
@@ -446,7 +450,11 @@ namespace SnookerQuizer.CoreProcess
 				foreach(string receipt in recipientlst.Split(';'))
 				{
 					Log.Information(string.Format("Email send to {0}", receipt));
-					MailHelper.SendMail(receipt, string.Format("斯诺克竞猜 {0}", dtStamp.ToString("MM/dd")), emailResultBody);
+					string subject = string.Format("斯诺克竞猜 {0}", dtStamp.ToString("MM/dd"));
+					if(!string.IsNullOrEmpty(champion))
+						subject = string.Format(" 恭喜 {0} 获得本次世锦赛冠军", champion);
+
+					MailHelper.SendMail(receipt, subject, emailResultBody);
 				}
 			}
 		}
