@@ -13,9 +13,9 @@ namespace SnookerQuizer.CoreProcess
 	{
 		public static void SendMail()
 		{
-			string HTMLBody = File.ReadAllText(@"C:\Users\SHI YEJIA\Desktop\emailTemplate.html");
+			string HTMLBody = File.ReadAllText(@"C:\Users\SHI YEJIA\Desktop\GameResult-20210429.html");
 			
-			MailHelper.SendMail("yejia.shi@hotmail.com;yejia.shi@sword-group.com;haifan.zhang@vinci-energies.com", "Result", HTMLBody);
+			MailHelper.SendMail("yejia.shi@hotmail.com", "Result", HTMLBody);
 		}
 
 		public static void SaveGamer()

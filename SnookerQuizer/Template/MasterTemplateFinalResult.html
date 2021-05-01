@@ -1,0 +1,258 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,">
+    <meta name="HandheldFriendly" content="True">
+    <title>SnookerQuizer</title>
+
+    <style>
+        table.price-alerts-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        /* table.price-alerts-table th:last-child {
+            color: #30adf4;
+        }
+        
+        table.price-alerts-table td:last-child {
+            color: #30adf4;
+        } */
+        
+        table.price-alerts-table td,
+        table.price-alerts-table th {
+            font-size: 13px;
+            text-align: center;
+            vertical-align: center;
+            border: 1px solid #AAAAAA;
+        }
+        
+        div.price-line {
+            padding-bottom: 5px;
+        }
+        
+        div.date-line {
+            font-size: 11px;
+        }
+        
+        div.date-of-notification {
+            font-weight: bold;
+        }
+        
+        td.game-point {
+            text-align: center;
+        }
+        
+        @media (max-width: 850px) {
+            .content-width {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="color: #4b5f68; font-family: Arial,Helvetica,sans-serif; font-size: 12px; margin: 0; padding: 0;">
+
+    <!--Table containing the white table-->
+    <table style="background-color:#e4ecf1; padding: 20px 10px; margin: 0 auto" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody>
+            <tr>
+                <td>
+                    <!--table with white background-->
+                    <table class="content-width" style="width:850px; max-width:850px; background-color:#ffffff; padding: 20px 5px; border-spacing: 0; border-collapse: separate !important; border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; -moz-border-radius: 4px 4px 0 0; margin:0 auto;"
+                        align="center" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <!--Content of the email-->
+                            <tr>
+                                <td>
+                                    <!--table containing the header of email-->
+                                    <table>
+                                        <tr>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="width:100%;padding-bottom:10px" colspan="3">
+                                                <table style="width:49%;" align="left" border="0" cellpadding="0" cellspacing="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-family:Arial,Helvetica,sans-serif;font-size:20px;line-height:18px;color:#5bbaf1;white-space: nowrap;">
+                                                                <h3>每日战报 <a href='https://livescores.worldsnookerdata.com/Draw/Tournament/14185/0/betfred-world-championship-2021' style='font-size: 15px; color:red'>(晋级情况查询)</a></h3>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table style="width:49%;" align="right" border="0" cellpadding="0" cellspacing="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="small" style="font-family: Arial,Helvetica,sans-serif; font-size: 12px; line-height: 18px; padding-top: 9px" align="right" valign="top">
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+
+                                    <!--Line separator of the email-->
+                                    <table>
+                                        <tr class="line-separator">
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="width:100%;min-width:18px;padding-top:24px; border-top: 1px solid #e4ecf2;" colspan="2"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+
+                                    <!--Table containing the matchs of yesterday-->
+                                    <table>
+                                        <tr>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td class="big" style="color: #009fe3; font-family: Arial,Helvetica,sans-serif; font-size: 20px; font-weight: 700; line-height: 30px; padding-bottom: 10px; width: 100%;text-align: center;" colspan="3">
+                                                <div style="background-color:#b1dae7;text-align:center;border:1px outset #00bfff;margin-bottom:5px;height:30px;padding-top: 0px;">
+                                                    昨日结束比赛
+                                                </div>
+                                            </td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        [LastDayMatch]
+                                    </table>
+                                    
+                                    <!--Table containing the game points of quizer for the last 5 days-->
+                                    <table>
+                                        <tr>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td class="big" style="color: #009fe3; font-family: Arial,Helvetica,sans-serif; font-size: 20px; font-weight: 700; line-height: 30px; padding-bottom: 10px; width: 100%;text-align: center;" colspan="3">
+                                                <div style="background-color:#b1dae7;text-align:center;border:1px outset #00bfff;margin-bottom:10px;height:30px;padding-top: 0px;">
+                                                    玩家最终比分
+                                                </div>
+                                            </td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+
+                                    <!--Today comments for every quizer-->
+                                    <table>
+                                        <tr>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style='width:100%;font-size: 15px; font-family: Arial,Helvetica,sans-serif;line-height:18px;padding-bottom:14px;' colspan='3'>
+												[FinalGamerResult]
+                                            </td>
+											
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+									
+									<table>
+										<tr>
+											<td style='font-size:1px;line-height:1px'/>
+											<td style='width:18px;min-width:18px'/>
+											<td style='width:85%;font-size: 13px; font-family: Arial,Helvetica,sans-serif;line-height:18px;padding-bottom:14px;' colspan='3'>
+												<img style="width:100%" src="cid:1.png" />
+											</td>
+											<td style='width:18px;min-width:18px'/>
+											<td style='font-size:1px;line-height:1px'/>
+										</tr>
+									</table>
+                                    
+                                    <!--Line separator of the email-->
+                                    <table>
+                                        <tr class="line-separator">
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="width:100%;min-width:18px;padding-top:24px; border-top: 1px solid #e4ecf2;" colspan="2"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+
+									<!-- <table> -->
+                                        <!-- <tr> -->
+                                            <!-- <td style="font-size:1px;line-height:1px"></td> -->
+                                            <!-- <td style="width:18px;min-width:18px"></td> -->
+                                            <!-- <td class="big" style="color: #009fe3; font-family: Arial,Helvetica,sans-serif; font-size: 20px; font-weight: 700; line-height: 30px; padding-bottom: 10px; width: 100%;text-align: center;" colspan="3"> -->
+                                                <!-- <div style="background-color:#b1dae7;text-align:center;border:1px outset #00bfff;margin-bottom:10px;height:30px;padding-top: 0px;"> -->
+                                                    <!-- 四强前瞻 -->
+                                                <!-- </div> -->
+                                            <!-- </td> -->
+                                            <!-- <td style="width:18px;min-width:18px"></td> -->
+                                            <!-- <td style="font-size:1px;line-height:1px"></td> -->
+                                        <!-- </tr> -->
+                                    <!-- </table> -->
+									<!-- <table> -->
+                                        <!-- <tr> -->
+                                            <!-- <td style="font-size:1px;line-height:1px"></td> -->
+                                            <!-- <td style="width:18px;min-width:18px"></td> -->
+                                            <!-- <td style='width:100%;font-size: 13px; font-family: Arial,Helvetica,sans-serif;line-height:18px;padding-bottom:14px;' colspan='3'> -->
+												<!-- 麦乐鸡-二师兄 -->
+                                                <!-- <ul style='list-style-type: circle;'> -->
+                                                    <!-- <li>麦乐鸡和二师兄交手过5次，二师兄3胜2负稍占上风，最近一次交手是去年冠军联赛冠军组决赛轮，二师兄3-1获胜。本次世锦赛二师兄第一轮经历决胜局淘汰丁主任，第二轮对阵资格赛选手杰米琼斯轻松过关，而麦乐鸡第一轮砍瓜切菜，第二轮则通过决胜局淘汰火老师。赛后火老师对麦乐鸡赞赏有加，认为麦乐鸡进入决赛也不会稀奇，看好麦乐鸡带着火老师的光环晋级半决赛。</li> -->
+                                                <!-- </ul> -->
+												<!-- 马尾-二逼 -->
+                                                <!-- <ul style='list-style-type: circle;'> -->
+                                                    <!-- <li>作为一对老对手，马尾和二逼的对局总是很有看点。两人总共交手过38次，马叔17-21稍稍落后，最近一次交手就是今年的球员锦标赛第一轮马叔4-6落败。本次比赛马叔的开球虽引发争议，但是前两轮比赛状态都不错，第二轮更是打出一波9-0带走同为75三杰的海根，随着火老师的出局，成为了75三杰的独苗；二逼状态则更为惊人，第一轮10-1，第二轮13-7淘汰艾伦。在我看来，这场矛与盾的对决，十分难以预测，小看好马叔一手吧。</li> -->
+                                                <!-- </ul> -->
+												<!-- 羊毛卷-囧哥 -->
+                                                <!-- <ul style='list-style-type: circle;'> -->
+                                                    <!-- <li>如果说前一场是矛与盾的对决，那这场就是中路对狙了。羊毛卷与囧哥之前交手过6次，各胜三场，最近一次在今年的球员锦标赛1/4决赛上，囧哥6-2获胜。囧哥作为去年的亚军，这些年在世锦赛的表现非常稳定，第二轮淘汰霍金斯以后，已经连续第六次打入世锦赛八强，可以接班霍师傅“克堡专家”的头衔了；羊毛卷自从留了这一头卷以后，似乎焕发了第二春，本赛季拿下英锦赛和巡回锦标赛两个冠军，他也将良好的状态带进了世锦赛，前两轮淘汰梁文博和司机，继续成为本次世锦赛的夺冠大热门。笔者是挺欣赏囧哥的，作为90后的代表，在75老妖怪和如日中天的80后对抗中，终于占据了自己的一席之地，希望囧能更进一步吧。</li> -->
+                                                <!-- </ul> -->
+												<!-- 床铺-墨菲 -->
+                                                <!-- <ul style='list-style-type: circle;'> -->
+                                                    <!-- <li>床铺作为最近两个赛季拿下11个排名赛冠军，成为最具统治力的选手。面对墨菲，交手记录也是22-11占据绝对上风。墨菲则是6年来首次重返世锦赛8强，距离自己的第一个世锦赛冠军已经有16年之久了。床铺前两轮没有感受到太大压力，先后淘汰海菲尔德和土豆哥，墨菲则是淘汰了老将马克戴维斯和中国少年颜炳涛，两个人本次状态都不错，但是实力上处在生涯巅峰的床铺应该更胜一筹。</li> -->
+                                                <!-- </ul> -->
+                                            <!-- </td> -->
+											
+                                            <!-- <td style="width:18px;min-width:18px"></td> -->
+                                            <!-- <td style="font-size:1px;line-height:1px"></td> -->
+                                        <!-- </tr> -->
+                                    <!-- </table> -->
+									
+									<table>
+                                        <tr>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td class="big" style="color: #009fe3; font-family: Arial,Helvetica,sans-serif; font-size: 20px; font-weight: 700; line-height: 30px; padding-bottom: 10px; width: 100%;text-align: center;" colspan="3">
+                                                <div style="background-color:#b1dae7;text-align:center;border:1px outset #00bfff;margin-bottom:10px;height:30px;padding-top: 0px;">
+                                                    支付方式
+                                                </div>
+                                            </td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+									<table>
+                                        <tr>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                           <td style='width:85%;font-size: 13px; font-family: Arial,Helvetica,sans-serif;line-height:18px;padding-bottom:14px;' colspan='3'>
+												<img style="width:100%" src="cid:2.png" />
+											</td>
+                                            <td style="width:18px;min-width:18px"></td>
+                                            <td style="font-size:1px;line-height:1px"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+</body>
+
+</html>

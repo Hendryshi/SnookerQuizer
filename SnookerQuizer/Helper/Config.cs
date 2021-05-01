@@ -150,6 +150,14 @@ namespace SnookerQuizer.Helper.Config
 				return Common.ReadSettingBool("Game.CheckMail", false);
 			}
 		}
+
+		public static bool UseFinalEmailTemplate
+		{
+			get
+			{
+				return Common.ReadSettingBool("Game.UseFinalEmailTemplate", false);
+			}
+		}
 	}
 	
 	public class SnookerAPI

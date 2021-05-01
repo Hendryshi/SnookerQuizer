@@ -78,7 +78,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Template\MasterTemplate.htm" />
+    <Content Include="Template\AllResult2.png" />
+    <Content Include="Template\GamerChart.png" />
+    <Content Include="Template\MasterTemplate.html" />
+    <Content Include="Template\MasterTemplateFinalResult.html" />
+    <Content Include="Template\Pay.jpg" />
     <Content Include="Template\QuizTemplate.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

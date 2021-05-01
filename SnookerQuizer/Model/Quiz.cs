@@ -130,5 +130,15 @@ namespace SnookerQuizer.Model
 		{
 			return QuizList.FindAll(q => q.WinPlayer.HasValue && q.WinPlayer == true).Count();
 		}
+
+		public string GetWinnerScoreList()
+		{
+			string result = "";
+			foreach(Quiz q in QuizList.FindAll(q => q.WinScore.HasValue && q.WinScore == true))
+			{
+				result += string.Format("{0} vs {1} ({2}) ", q.Player1Name, q.Player2Name, q.Score);
+			}
+			return result.TrimEnd();
+		}
 	}
 }
