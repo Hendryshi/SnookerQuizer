@@ -37,13 +37,16 @@ namespace SnookerQuizer.CoreProcess
 			Program.SnookerPlayerList = Processor.ImportPlayersInEvent();
 			Program.TranslatePlayerList = Processor.ImportTranslatePlayers();
 			Program.MatchList = Processor.ImportMatchsInEvent(false, false);
+			Program.GamerList = Processor.ImportGamerList();
 
-
-			foreach(Match m in Program.MatchList)
+			foreach(GamerInfo gi in Program.GamerList)
 			{
-				string result = string.Join("<br />", m.GetSessionDateList().Where(s => s.Date == DateTime.Today.Date).Select(l => l.AddHours(8).ToString("HH:mm")));
-				if(!string.IsNullOrEmpty(result))
-					Console.WriteLine(result);
+				Console.WriteLine(gi.UserName);
+				foreach(GamePoint p in gi.PointList)
+				{
+					Console.WriteLine(p.valPoint);
+				}
+				//break;
 			}
 			Console.ReadKey();
 		}

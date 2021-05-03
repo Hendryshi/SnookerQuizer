@@ -34,8 +34,8 @@ namespace SnookerQuizer
 			ConfigureSerilog();
 			try
 			{
-				DateTime dtStamp = new DateTime(2021, 05, 02, 8, 0, 0);
-				//DateTime dtStamp = DateTime.Now;
+				//DateTime dtStamp = new DateTime(2021, 05, 02, 8, 0, 0);
+				DateTime dtStamp = DateTime.Now;
 				Log.Information("------------- Staring Process Snooker Quiz Program ---------------------");
 				Log.Information(string.Format("------------------{0}-------------------------------------", dtStamp.ToString("MM/dd/yyyy HH:mm")));
 				Log.Information("");
@@ -61,7 +61,7 @@ namespace SnookerQuizer
 
 				if(Game.IsTest)
 				{
-					//TestFunction.TestWhatYouWant();
+					TestFunction.TestWhatYouWant();
 					//TestFunction.TestMatchResult();
 					TestFunction.SendMail();
 				}

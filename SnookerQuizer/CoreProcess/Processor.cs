@@ -422,11 +422,11 @@ namespace SnookerQuizer.CoreProcess
 						strFinalGamerResult.AppendFormat("<b style='font-size: 18px'> {0} {1}</b>", prefix, gi.UserName);
 
 					strFinalGamerResult.AppendFormat("<ul style='list-style-type: circle;'>");
-					strFinalGamerResult.AppendFormat("<li>玩家 {0} 获得积分: <b>{1}</b>  {2}: <b>{3}¥</b></li>", gi.UserName, gi.TotalPoint, index == 1 ? "获得奖金" : "需支付", Math.Abs(GetGamerDiffScore(gi)));
-					strFinalGamerResult.AppendFormat("<li>玩家 {0} 在本次比赛中共猜对晋级名额 <b>{1}</b> 次</li>", gi.UserName, gi.GetWinnerPlayerCount());
+					strFinalGamerResult.AppendFormat("<li>玩家 {0} 共获得积分: <b>{1}</b>  {2}: <b>{3}¥</b></li>", gi.UserName, gi.TotalPoint, index == 1 ? "获得奖金" : "需支付冠军", Math.Abs(GetGamerDiffScore(gi)));
+					strFinalGamerResult.AppendFormat("<li>玩家 {0} 在{1}次比赛中共猜对晋级名额 <b>{2}</b> 次</li>", gi.UserName, Program.MatchList.Count(), gi.GetWinnerPlayerCount());
 
 					if(gi.GetWinnerScoreCount() > 0)
-						strFinalGamerResult.AppendFormat("<li>玩家 {0} 在本次比赛中共猜对比分 <b>{1}</b> 次, 分别为: {2}</li>", gi.UserName, gi.GetWinnerScoreCount(), gi.GetWinnerScoreList());
+						strFinalGamerResult.AppendFormat("<li>玩家 {0} 在{1}次比赛中共猜对比分 <b>{2}</b> 次, 分别为: {3}</li>", gi.UserName, Program.MatchList.Count(), gi.GetWinnerScoreCount(), gi.GetWinnerScoreList());
 					
 					strFinalGamerResult.AppendFormat("</ul>");
 					index++;
